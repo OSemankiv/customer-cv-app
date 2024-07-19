@@ -24,17 +24,17 @@ public class PositionService {
     ProjectEntityService projectEntityService;
 
     @Transactional
-    public Position savePosition(UUID projectId, PositionCreateRequest position) {
+    public Position save(UUID projectId, PositionCreateRequest position) {
         ProjectEntity project = projectEntityService.findById(projectId);
         PositionEntity positionEntityToSave = PositionEntity.builder()
                 .title(position.getTitle())
                 .requirement(position.getRequirement())
+                .project(project)
                 .build();
-        positionEntityToSave.setProject(project);
         return positionMapper.positionEntityToPosition(positionRepository.save(positionEntityToSave));
     }
 
-    public void deletePositionById(UUID id) {
+    public void delete(UUID id) {
         positionRepository.deleteById(id);
     }
 }

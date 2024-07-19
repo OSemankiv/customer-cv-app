@@ -2,7 +2,6 @@ package com.customerapp.customerappdemo.service;
 
 import com.customerapp.customerappdemo.dto.api.EmployeeCreateRequest;
 import com.customerapp.customerappdemo.entity.EmployeeEntity;
-import com.customerapp.customerappdemo.exception.DataNotFoundException;
 import com.customerapp.customerappdemo.mappers.EmployeeMapper;
 import com.customerapp.customerappdemo.model.Employee;
 
@@ -26,20 +25,15 @@ public class EmployeeService {
     EmployeeEntityService employeeEntityService;
 
     @Transactional(readOnly = true)
-    public List<Employee> getAllEmployees(){
+    public List<Employee> findAll(){
         return employeeRepository.findAll()
                 .stream()
                 .map(employeeMapper::employeeEntityToEmployee)
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public Employee saveNewEmployee(Employee employee){
-       EmployeeEntity employeeEntityToSave = employeeMapper.employeeToEmployeeEntity(employee);
-        return employeeMapper.employeeEntityToEmployee(employeeRepository.save(employeeEntityToSave));
-    };
-
-    public Employee saveEmployee(EmployeeCreateRequest employeeCreateRequest){
+    @Transactional(readOnly = true)
+    public Employee save(EmployeeCreateRequest employeeCreateRequest){
         EmployeeEntity employeeEntityToSave = EmployeeEntity.builder()
                 .firstName(employeeCreateRequest.getFirstName())
                 .lastName(employeeCreateRequest.getLastName())
@@ -53,11 +47,11 @@ public class EmployeeService {
     }
 
     @Transactional(readOnly = true)
-    public Employee getEmployeeById(UUID id){
+    public Employee findById(UUID id){
        return employeeMapper.employeeEntityToEmployee(employeeEntityService.findById(id));
     }
 
-    public void delete (UUID id) {
+    public void delete(UUID id) {
             employeeRepository.deleteById(id);
     }
 }

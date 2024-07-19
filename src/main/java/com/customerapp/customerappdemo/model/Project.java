@@ -15,5 +15,5 @@ public class Project {
 
     UUID id;
     String name;
-    List<Position> position;
+    List<Position> positions;
 }

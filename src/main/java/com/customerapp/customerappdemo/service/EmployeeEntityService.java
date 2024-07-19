@@ -17,13 +17,7 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EmployeeEntityService {
 
-    EmployeeMapper  employeeMapper;
     EmployeeRepository employeeRepository;
-
-    //not needed?
-    public EmployeeEntity save(Employee employee) {
-        return employeeMapper.employeeToEmployeeEntity(employee);
-    }
 
     public EmployeeEntity findById(UUID id) {
         return employeeRepository

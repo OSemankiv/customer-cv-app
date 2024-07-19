@@ -7,7 +7,7 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="add_employee_table" author="osemankiv">
-        <createTable tableName="employeeEntity">
+        <createTable tableName="employee">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -25,7 +25,7 @@
         </createTable>
     </changeSet>
     <changeSet id="add_project_and_position_tables" author="osemankiv">
-        <createTable tableName="projectEntity">
+        <createTable tableName="project">
             <column name="id" type="UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -33,7 +33,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="positionEntity">
+        <createTable tableName="position">
             <column name="id" type="UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -47,10 +47,10 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="positionEntity"
+        <addForeignKeyConstraint baseTableName="position"
                                  baseColumnNames="project_id"
                                  constraintName="fk_position_project"
-                                 referencedTableName="projectEntity"
+                                 referencedTableName="project"
                                  referencedColumnNames="id"/>
     </changeSet>
 

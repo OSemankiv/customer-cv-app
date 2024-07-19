@@ -22,17 +22,17 @@ public class ProjectController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Project addNewProject(@RequestBody @Valid ProjectCreateRequest project) {
-        return projectService.saveProject(project.getName());
+    public Project create(@RequestBody @Valid ProjectCreateRequest project) {
+        return projectService.save(project.getName());
     }
 
     @GetMapping
-    public List<Project> getAllProjects() {
-        return projectService.getAllProjects();
+    public List<Project> getAll() {
+        return projectService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Project getProjectById(@PathVariable UUID id) {
-        return projectService.findProjectById(id);
+    public Project getById(@PathVariable UUID id) {
+        return projectService.findById(id);
     }
 }

@@ -1,9 +1,6 @@
 package com.customerapp.customerappdemo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -16,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "Position")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PositionEntity {
 
@@ -32,7 +29,6 @@ public class PositionEntity {
     @NotNull
     String requirement;
 
-    @NotBlank
     @NotNull
     @ManyToOne
     ProjectEntity project;

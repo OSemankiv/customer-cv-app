@@ -22,25 +22,25 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee addNewEmployee(@RequestBody @Valid EmployeeCreateRequest employee) {
+    public Employee create(@RequestBody @Valid EmployeeCreateRequest employee) {
 
-        return employeeService.saveEmployee(employee);
+        return employeeService.save(employee);
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<Employee> getAll() {
 
-        return employeeService.getAllEmployees();
+        return employeeService.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Employee getEmployeeById(@PathVariable UUID id) {
+    public Employee getById(@PathVariable UUID id) {
 
-        return employeeService.getEmployeeById(id);
+        return employeeService.findById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployeeById(@PathVariable UUID id) {
+    public void delete(@PathVariable UUID id) {
 
         employeeService.delete(id);
         }

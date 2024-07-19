@@ -1,9 +1,7 @@
 package com.customerapp.customerappdemo.controller;
 
 import com.customerapp.customerappdemo.dto.api.PositionCreateRequest;
-import com.customerapp.customerappdemo.entity.ProjectEntity;
 import com.customerapp.customerappdemo.model.Position;
-import com.customerapp.customerappdemo.model.Project;
 import com.customerapp.customerappdemo.service.PositionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +21,10 @@ public class PositionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Position addNewPosition(@PathVariable UUID id,
-                                   @Valid
+
+    public Position create(@PathVariable UUID id,
+                           @Valid
                                    @RequestBody PositionCreateRequest position){
-        return positionService.savePosition(id, position);
+        return positionService.save(id, position);
     }
 }

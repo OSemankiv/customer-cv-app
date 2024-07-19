@@ -24,7 +24,7 @@ public class ProjectService {
     ProjectEntityService projectEntityService;
 
     @Transactional
-    public Project saveProject(String name) {
+    public Project save(String name) {
         ProjectEntity projectEntityToSave = ProjectEntity.builder()
                 .name(name)
                 .build();
@@ -32,7 +32,7 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public List<Project> getAllProjects() {
+    public List<Project> findAll() {
         return projectRepository.findAll()
                 .stream()
                 .map(projectMapper::projectEntityToProject)
@@ -40,11 +40,11 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public Project findProjectById(UUID id){
+    public Project findById(UUID id){
         return projectMapper.projectEntityToProject(projectEntityService.findById(id));
     }
 
-    public void deleteProjectById(UUID id) {
+    public void delete(UUID id) {
         projectRepository.deleteById(id);
     }
 }
