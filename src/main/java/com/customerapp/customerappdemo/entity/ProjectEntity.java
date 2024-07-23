@@ -17,6 +17,7 @@ import java.util.UUID;
 @Entity(name = "Project")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 public class ProjectEntity {
 
@@ -24,6 +25,7 @@ public class ProjectEntity {
     @GeneratedValue(generator = "UUID")
     UUID id;
 
+    @ToString.Include
     @NotBlank
     @NotNull
     String name;

@@ -26,13 +26,13 @@ public class ProjectController {
         return projectService.save(project.getName());
     }
 
-    @GetMapping
-    public List<Project> getAll() {
-        return projectService.findAll();
-    }
-
     @GetMapping("/{id}")
     public Project getById(@PathVariable UUID id) {
         return projectService.findById(id);
+    }
+
+    @GetMapping
+    public List<Project> getAll(){
+        return projectService.getAll();
     }
 }

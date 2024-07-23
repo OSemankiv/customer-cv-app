@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/projects/{id}/positions")
+@RequestMapping("/v1/projects/{projectId}/positions")
 public class PositionController {
 
     private final PositionService positionService;
@@ -22,9 +22,9 @@ public class PositionController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 
-    public Position create(@PathVariable UUID id,
+    public Position create(@PathVariable UUID projectId,
                            @Valid
-                                   @RequestBody PositionCreateRequest position){
-        return positionService.save(id, position);
+                           @RequestBody PositionCreateRequest position){
+        return positionService.save(projectId, position);
     }
 }

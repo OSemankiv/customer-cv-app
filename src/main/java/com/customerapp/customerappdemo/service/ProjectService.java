@@ -32,16 +32,17 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public List<Project> findAll() {
-        return projectRepository.findAll()
+    public Project findById(UUID id){
+        return projectMapper.projectEntityToProject(projectEntityService.findById(id));
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Project> getAll() {
+        return projectRepository.findAllProjects()
                 .stream()
                 .map(projectMapper::projectEntityToProject)
                 .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public Project findById(UUID id){
-        return projectMapper.projectEntityToProject(projectEntityService.findById(id));
     }
 
     public void delete(UUID id) {
