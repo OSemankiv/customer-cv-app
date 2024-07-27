@@ -1,5 +1,6 @@
 package com.customerapp.customerappdemo.service;
 
+import com.customerapp.customerappdemo.dto.api.ProjectCreateRequest;
 import com.customerapp.customerappdemo.entity.ProjectEntity;
 import com.customerapp.customerappdemo.exception.DataNotFoundException;
 import com.customerapp.customerappdemo.repository.ProjectRepository;
@@ -20,5 +21,13 @@ public class ProjectEntityService {
     public ProjectEntity findById(UUID id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Project with id %s not found".formatted(id)));
+    }
+
+
+    public ProjectEntity create(ProjectCreateRequest projectCreateRequest) {
+        ProjectEntity projectEntityToSave = ProjectEntity.builder()
+                .name(projectCreateRequest.getName())
+                .build();
+        return projectRepository.save(projectEntityToSave);
     }
 }

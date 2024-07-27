@@ -30,6 +30,10 @@ public class ProjectEntity {
     @NotNull
     String name;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(
+            mappedBy = "project",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     List<PositionEntity> positions;
 }

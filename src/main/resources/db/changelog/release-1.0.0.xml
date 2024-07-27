@@ -53,5 +53,12 @@
                                  referencedTableName="project"
                                  referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="add_status_to_position" author="osemankiv">
+        <addColumn tableName="position">
+            <column name="status" type="varchar(255)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

@@ -1,10 +1,14 @@
 package com.customerapp.customerappdemo.service;
 
 import com.customerapp.customerappdemo.dto.api.PositionCreateRequest;
+import com.customerapp.customerappdemo.dto.api.ProjectAndPositionCreateRequest;
 import com.customerapp.customerappdemo.entity.PositionEntity;
 import com.customerapp.customerappdemo.entity.ProjectEntity;
+import com.customerapp.customerappdemo.exception.DataNotFoundException;
 import com.customerapp.customerappdemo.mappers.PositionMapper;
+import com.customerapp.customerappdemo.mappers.ProjectMapper;
 import com.customerapp.customerappdemo.model.Position;
+import com.customerapp.customerappdemo.model.Project;
 import com.customerapp.customerappdemo.repository.PositionRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,19 +26,32 @@ public class PositionService {
     PositionRepository positionRepository;
     PositionMapper positionMapper;
     ProjectEntityService projectEntityService;
+    PositionEntityService positionEntityService;
+    ProjectMapper projectMapper;
 
     @Transactional
-    public Position save(UUID projectId, PositionCreateRequest position) {
+    public Position create(UUID projectId, PositionCreateRequest position) {
         ProjectEntity project = projectEntityService.findById(projectId);
-        PositionEntity positionEntityToSave = PositionEntity.builder()
-                .title(position.getTitle())
-                .requirement(position.getRequirement())
-                .project(project)
-                .build();
-        return positionMapper.positionEntityToPosition(positionRepository.save(positionEntityToSave));
+        PositionEntity createdPosition = positionEntityService.create(project, position);
+        return mapToDomain(createdPosition);
     }
 
-    public void delete(UUID id) {
+    @Transactional
+    public Project createWithProject(ProjectAndPositionCreateRequest positionAndProj) {
+        ProjectEntity projectEntity = projectEntityService.create(positionAndProj.getProject());
+        positionEntityService.create(projectEntity, positionAndProj.getPosition());
+        return projectMapper.projectEntityToProject(projectEntity);
+    }
+
+    public void delete(UUID projectId, UUID id) {
+        boolean positionExists = positionRepository.existsByIdAndProjectId(id, projectId);
+        if(!positionExists) {
+            throw new DataNotFoundException("Position with id " + id + " does not exist");
+        }
         positionRepository.deleteById(id);
+    }
+
+    private Position mapToDomain(PositionEntity createdPosition) {
+        return positionMapper.positionEntityToPosition(createdPosition);
     }
 }

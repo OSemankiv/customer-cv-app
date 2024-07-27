@@ -1,5 +1,6 @@
 package com.customerapp.customerappdemo.model;
 
+import com.customerapp.customerappdemo.entity.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,4 +16,5 @@ public class Position {
     UUID id;
     String title;
     String requirement;
+    Status status;
 }

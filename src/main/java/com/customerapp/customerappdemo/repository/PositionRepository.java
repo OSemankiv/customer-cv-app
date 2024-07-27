@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface PositionRepository extends JpaRepository<PositionEntity, UUID> {
+
+    boolean existsByIdAndProjectId(UUID id, UUID projectId);
 }
