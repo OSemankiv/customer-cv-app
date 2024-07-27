@@ -22,9 +22,19 @@ public class PositionController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 
-    public Position create(@PathVariable UUID projectId,
-                           @Valid
-                           @RequestBody PositionCreateRequest position){
-        return positionService.save(projectId, position);
+    public Position create(
+            @PathVariable UUID projectId,
+            @Valid
+            @RequestBody PositionCreateRequest position
+    ){
+        return positionService.create(projectId, position);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(
+            @PathVariable UUID projectId,
+            @PathVariable UUID id
+    ){
+        positionService.delete(projectId, id);
     }
 }

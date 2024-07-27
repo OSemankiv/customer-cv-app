@@ -1,7 +1,10 @@
 package com.customerapp.customerappdemo.controller;
 
+import com.customerapp.customerappdemo.dto.api.ProjectAndPositionCreateRequest;
 import com.customerapp.customerappdemo.dto.api.ProjectCreateRequest;
+import com.customerapp.customerappdemo.dto.api.ProjectUpdateRequest;
 import com.customerapp.customerappdemo.model.Project;
+import com.customerapp.customerappdemo.service.PositionService;
 import com.customerapp.customerappdemo.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +22,12 @@ import java.util.UUID;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final PositionService positionService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Project create(@RequestBody @Valid ProjectCreateRequest project) {
-        return projectService.save(project.getName());
+        return projectService.create(project);
     }
 
     @GetMapping("/{id}")
@@ -34,5 +38,25 @@ public class ProjectController {
     @GetMapping
     public List<Project> getAll(){
         return projectService.getAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable UUID id) {
+
+        projectService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public Project update(@PathVariable UUID id,
+                          @Valid @RequestBody ProjectUpdateRequest project) {
+
+        return projectService.update(id, project);
+    }
+
+    @PostMapping("/position")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Project createWithPosition(@RequestBody @Valid ProjectAndPositionCreateRequest project) {
+
+        return positionService.createWithProject(project);
     }
 }

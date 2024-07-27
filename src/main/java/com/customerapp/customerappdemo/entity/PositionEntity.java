@@ -32,4 +32,8 @@ public class PositionEntity {
     @NotNull
     @ManyToOne
     ProjectEntity project;
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    Status status = Status.ACTIVE;
 }
