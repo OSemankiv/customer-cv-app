@@ -1,20 +1,19 @@
-package com.customerapp.customerappdemo.model;
+package com.customerapp.customerappdemo.bamboo.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.UUID;
 
-@Builder
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Employee {
+public class BambooEmployee {
 
-    UUID id;
+    Long id;
     String firstName;
     String lastName;
     String displayName;
@@ -22,5 +21,4 @@ public class Employee {
     String department;
     String jobTitle;
     String workEmail;
-    Long bambooId;
 }

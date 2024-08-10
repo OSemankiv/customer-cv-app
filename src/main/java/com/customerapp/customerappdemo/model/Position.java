@@ -4,6 +4,7 @@ import com.customerapp.customerappdemo.entity.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -17,4 +18,5 @@ public class Position {
     String title;
     String requirement;
     Status status;
+    List<Candidate> candidates;
 }

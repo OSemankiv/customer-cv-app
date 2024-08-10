@@ -60,5 +60,34 @@
             </column>
         </addColumn>
     </changeSet>
-
+    <changeSet id="add_candidate_table" author="osemankiv">
+        <createTable tableName="candidate">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="employee_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="candidate"
+                                 baseColumnNames="employee_id"
+                                 constraintName="fk_candidate_employee"
+                                 referencedTableName="employee"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="candidate"
+                                 baseColumnNames="position_id"
+                                 constraintName="fk_candidate_position"
+                                 referencedTableName="position"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="add-bambooId-to-employee" author="osemankiv">
+        <addColumn tableName="employee">
+            <column name="bambooId" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -12,7 +12,10 @@ import java.util.UUID;
 @Repository
 public interface ProjectRepository extends JpaRepository<ProjectEntity, UUID> {
 
-    @Query("SELECT p FROM Project p LEFT JOIN FETCH p.positions")
+    @Query("""
+            SELECT p FROM Project p 
+            LEFT JOIN FETCH p.positions
+            """)
     List<ProjectEntity> findAllProjects();
 }
 

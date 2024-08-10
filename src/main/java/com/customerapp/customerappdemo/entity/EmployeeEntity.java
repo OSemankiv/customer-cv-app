@@ -31,9 +31,25 @@ public class EmployeeEntity {
     @NotBlank
     String lastName;
 
+    @NotNull
+    @NotBlank
     String displayName;
+
+    @NotNull
+    @NotBlank
     String location;
+
+    @NotNull
+    @NotBlank
     String department;
+
+    @NotNull
+    @NotBlank
     String jobTitle;
+
+    @NotNull
+    @NotBlank
     String workEmail;
+
+    Long bambooId;
 }

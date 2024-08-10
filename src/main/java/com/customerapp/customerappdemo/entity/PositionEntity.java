@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -36,4 +38,11 @@ public class PositionEntity {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     Status status = Status.ACTIVE;
+
+    @OneToMany(
+            mappedBy = "position",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<CandidateEntity> candidates = new ArrayList<>();
 }
