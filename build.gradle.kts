@@ -34,11 +34,20 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
     implementation("org.postgresql:postgresql:42.7.3")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.3")
+    }
 }
 
 tasks.withType<Test> {

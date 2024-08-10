@@ -9,12 +9,14 @@ import com.customerapp.customerappdemo.repository.EmployeeRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -32,18 +34,10 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public Employee save(EmployeeCreateRequest employeeCreateRequest){
-        EmployeeEntity employeeEntityToSave = EmployeeEntity.builder()
-                .firstName(employeeCreateRequest.getFirstName())
-                .lastName(employeeCreateRequest.getLastName())
-                .displayName(employeeCreateRequest.getDisplayName())
-                .location(employeeCreateRequest.getLocation())
-                .department(employeeCreateRequest.getDepartment())
-                .jobTitle(employeeCreateRequest.getJobTitle())
-                .workEmail(employeeCreateRequest.getWorkEmail())
-                .build();
-        return employeeMapper.employeeEntityToEmployee(employeeRepository.save(employeeEntityToSave));
+    @Transactional
+    public Employee create(EmployeeCreateRequest employeeCreateRequest){
+        EmployeeEntity savedEmployee = employeeEntityService.create(employeeCreateRequest);
+        return employeeMapper.employeeEntityToEmployee(savedEmployee);
     }
 
     @Transactional(readOnly = true)

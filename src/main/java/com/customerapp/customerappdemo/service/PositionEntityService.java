@@ -20,9 +20,9 @@ public class PositionEntityService {
 
     PositionRepository positionRepository;
 
-    public PositionEntity findById(UUID id) {
-        return positionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Project not found"));
+    public PositionEntity findByIdAndProjectId(UUID id, UUID projectId) {
+        return positionRepository.findByIdAndProjectId(id, projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Position %s not found in project %s".formatted(id, projectId)));
     }
 
     public PositionEntity create(ProjectEntity project, PositionCreateRequest positionCreateRequest) {

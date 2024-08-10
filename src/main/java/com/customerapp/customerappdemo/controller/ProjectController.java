@@ -37,7 +37,7 @@ public class ProjectController {
 
     @GetMapping
     public List<Project> getAll(){
-        return projectService.getAll();
+        return projectService.getAllWithPositionsAndCandidates();
     }
 
     @DeleteMapping("/{id}")

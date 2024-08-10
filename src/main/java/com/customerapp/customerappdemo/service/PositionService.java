@@ -16,7 +16,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -43,12 +45,8 @@ public class PositionService {
         return projectMapper.projectEntityToProject(projectEntity);
     }
 
-    public void delete(UUID projectId, UUID id) {
-        boolean positionExists = positionRepository.existsByIdAndProjectId(id, projectId);
-        if(!positionExists) {
-            throw new DataNotFoundException("Position with id " + id + " does not exist");
-        }
-        positionRepository.deleteById(id);
+    public void delete(UUID id, UUID projectId) {
+        positionRepository.deleteByIdAndProjectId(id, projectId);
     }
 
     private Position mapToDomain(PositionEntity createdPosition) {

@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -18,12 +19,13 @@ public class ProjectEntityService {
 
     ProjectRepository projectRepository;
 
+    @Transactional(readOnly = true)
     public ProjectEntity findById(UUID id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Project with id %s not found".formatted(id)));
     }
 
-
+    @Transactional
     public ProjectEntity create(ProjectCreateRequest projectCreateRequest) {
         ProjectEntity projectEntityToSave = ProjectEntity.builder()
                 .name(projectCreateRequest.getName())
